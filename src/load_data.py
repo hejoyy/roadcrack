@@ -11,7 +11,7 @@ def get_image_names(crack_type):
     query_data = pd.read_excel('./query_data/' + crack_type + '.xlsx')
     image_names = query_data.RDSRFC_IMG_FILE_NM_1.values
 
-    return image_names
+    return image_names.tolist()
 
 def get_image_vector(crack_type):
     """dataset 폴더 안의 모든 이미지 중에 crack_type에 해당하는 image vector 리턴
@@ -21,10 +21,14 @@ def get_image_vector(crack_type):
     image_names = get_image_names(crack_type)
     image_list = []
     for image_name in image_names:
-        img = Image.open(datasets_dir + image_names)
+        img = Image.open(datasets_dir + image_name)
         image_list.append(img)
 
     return np.asarray(image_list)
 
 # example
 data_ACHIQR = get_image_vector('AC_HI_QR')
+
+query_data = pd.read_excel('./query_data/' + 'AC_HI_QR' + '.xlsx')
+image_names = query_data.RDSRFC_IMG_FILE_NM_1.values
+print(image_names.tolist
